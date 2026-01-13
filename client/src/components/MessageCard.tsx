@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import type { MessageResponse } from "@shared/routes";
 import { cn } from "@/lib/utils";
 
-import pinkIcon from "@assets/stock_images/cute_cinnamoroll_san_a3e67eba.jpg";
-import blueIcon from "@assets/stock_images/cute_cinnamoroll_san_789a7931.jpg";
-import greenIcon from "@assets/stock_images/cute_cinnamoroll_san_1632d6e9.jpg";
-import yellowIcon from "@assets/stock_images/cute_cinnamoroll_san_e6dee928.jpg";
-import purpleIcon from "@assets/stock_images/cute_cinnamoroll_san_375291ea.jpg";
-import whiteIcon from "@assets/stock_images/cute_cinnamoroll_san_fe959763.jpg";
+import pinkIcon from "@assets/IMG_4274_1768329071198.png";
+import blueIcon from "@assets/IMG_4275_1768329071198.png";
+import greenIcon from "@assets/IMG_4276_1768329071198.png";
+import yellowIcon from "@assets/IMG_4277_1768329071198.png";
+import purpleIcon from "@assets/IMG_4278_1768329071198.png";
+import whiteIcon from "@assets/IMG_4276_1768329071198.png";
 
 interface MessageCardProps {
   message: MessageResponse;
