@@ -10,12 +10,12 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 const EMOTIONS = [
-  { color: "#ef4444", label: "Angry", class: "bg-red-500" },
-  { color: "#3b82f6", label: "Sad", class: "bg-blue-500" },
-  { color: "#10b981", label: "Peaceful", class: "bg-emerald-500" },
-  { color: "#f59e0b", label: "Nostalgic", class: "bg-amber-500" },
-  { color: "#8b5cf6", label: "In Love", class: "bg-violet-500" },
-  { color: "#18181b", label: "Empty", class: "bg-zinc-900" },
+  { color: "#ef4444", label: "Angry", class: "bg-[#FFB7B2]" },
+  { color: "#3b82f6", label: "Sad", class: "bg-[#B2E2F2]" },
+  { color: "#10b981", label: "Peaceful", class: "bg-[#B2F2BB]" },
+  { color: "#f59e0b", label: "Nostalgic", class: "bg-[#FDFD96]" },
+  { color: "#8b5cf6", label: "In Love", class: "bg-[#D1B2F2]" },
+  { color: "#18181b", label: "Empty", class: "bg-[#FFFFFF]" },
 ];
 
 export function ComposeModal() {
@@ -62,13 +62,13 @@ export function ComposeModal() {
       <DialogTrigger asChild>
         <Button 
           size="lg" 
-          className="fixed bottom-8 right-8 rounded-none h-20 w-20 shadow-[5px_5px_0px_#00ffff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0px_#00ffff] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-200 bg-primary text-white z-40 border-4 border-white transform rotate-3"
+          className="fixed bottom-8 right-8 rounded-full h-16 w-16 shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 bg-sky-300 text-white z-40 border-4 border-white"
         >
-          <PenLine className="h-8 w-8 stroke-[3px]" />
+          <PenLine className="h-6 w-6" />
         </Button>
       </DialogTrigger>
       <DialogContent className={cn(
-        "p-0 gap-0 overflow-hidden border-4 border-white sm:max-w-xl transition-colors duration-500 h-[600px] flex flex-col shadow-[15px_15px_0px_rgba(255,0,255,0.5)]",
+        "p-0 gap-0 overflow-hidden border-8 border-white sm:max-w-xl transition-colors duration-500 h-[600px] flex flex-col shadow-xl rounded-[2rem]",
         selectedColor.class
       )}>
         <form onSubmit={handleSubmit} className="flex flex-col h-full relative z-10">
@@ -107,19 +107,19 @@ export function ComposeModal() {
             </motion.div>
           </div>
 
-          <div className="p-6 bg-black/20 backdrop-blur-sm border-t border-white/10 flex items-center justify-between">
-            <div className="flex gap-2">
+          <div className="p-6 bg-white/20 backdrop-blur-sm border-t border-white/40 flex items-center justify-between">
+            <div className="flex gap-3">
               {EMOTIONS.map((emotion) => (
                 <button
                   key={emotion.color}
                   type="button"
                   onClick={() => setSelectedColor(emotion)}
                   className={cn(
-                    "w-8 h-8 rounded-full border-2 transition-all duration-200",
+                    "w-10 h-10 rounded-full border-4 transition-all duration-300 shadow-sm",
                     emotion.class,
                     selectedColor.color === emotion.color 
-                      ? "border-white scale-110" 
-                      : "border-transparent opacity-60 hover:opacity-100 hover:scale-105"
+                      ? "border-white scale-110 shadow-md" 
+                      : "border-transparent opacity-80 hover:opacity-100 hover:scale-105"
                   )}
                   title={emotion.label}
                 />
@@ -129,7 +129,7 @@ export function ComposeModal() {
             <Button 
               type="submit" 
               disabled={createMessage.isPending || !toName || !content}
-              className="bg-white text-black hover:bg-white/90 rounded-full px-8 font-medium"
+              className="bg-white text-sky-400 hover:bg-sky-50 rounded-full px-10 h-12 font-bold shadow-md transition-all active:scale-95"
             >
               {createMessage.isPending ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />

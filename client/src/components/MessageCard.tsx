@@ -10,12 +10,12 @@ interface MessageCardProps {
 // Map database colors to actual CSS classes/styles
 // We use a mapping to ensure safe consistent styling
 const COLOR_MAP: Record<string, { bg: string, text: string }> = {
-  "#ef4444": { bg: "bg-red-500", text: "text-white" },       // Angry
-  "#3b82f6": { bg: "bg-blue-500", text: "text-white" },      // Sad
-  "#10b981": { bg: "bg-emerald-500", text: "text-white" },   // Peaceful
-  "#f59e0b": { bg: "bg-amber-500", text: "text-white" },     // Nostalgic
-  "#8b5cf6": { bg: "bg-violet-500", text: "text-white" },    // Love
-  "#18181b": { bg: "bg-zinc-900", text: "text-zinc-100" },   // Empty
+  "#ef4444": { bg: "bg-[#FFB7B2]", text: "text-[#4A4A4A]" },   // Pastel Red
+  "#3b82f6": { bg: "bg-[#B2E2F2]", text: "text-[#4A4A4A]" },   // Pastel Blue
+  "#10b981": { bg: "bg-[#B2F2BB]", text: "text-[#4A4A4A]" },   // Pastel Green
+  "#f59e0b": { bg: "bg-[#FDFD96]", text: "text-[#4A4A4A]" },   // Pastel Yellow
+  "#8b5cf6": { bg: "bg-[#D1B2F2]", text: "text-[#4A4A4A]" },   // Pastel Purple
+  "#18181b": { bg: "bg-[#FFFFFF]", text: "text-[#4A4A4A]" },   // White
 };
 
 export function MessageCard({ message, index }: MessageCardProps) {
@@ -24,20 +24,20 @@ export function MessageCard({ message, index }: MessageCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
       className={cn(
-        "relative p-8 flex flex-col justify-between overflow-visible group transition-all duration-500 paint-splat neon-glow",
+        "relative p-8 flex flex-col justify-between overflow-visible group transition-all duration-500 paint-splat neon-glow cursor-pointer",
         theme.bg,
         theme.text
       )}
     >
       <div className="relative z-10">
-        <h3 className="font-display text-2xl font-black uppercase tracking-tighter opacity-90 mb-4 transform -rotate-1">
+        <h3 className="font-display text-2xl font-bold tracking-tight text-primary-foreground mb-4">
           To: {message.toName}
         </h3>
-        <p className="font-sans text-lg leading-tight font-bold line-clamp-6 opacity-95">
+        <p className="font-sans text-lg leading-relaxed font-medium line-clamp-6 opacity-90">
           {message.content}
         </p>
       </div>
