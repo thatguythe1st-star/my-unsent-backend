@@ -21,6 +21,9 @@ const COLOR_MAP: Record<string, { bg: string, text: string }> = {
 export function MessageCard({ message, index }: MessageCardProps) {
   // Default to black/white if color not found
   const theme = COLOR_MAP[message.color] || { bg: "bg-white", text: "text-black border border-zinc-200" };
+  
+  // Cycle through different paint splash shapes based on index
+  const splatClass = `paint-splat-${(index % 4) + 1}`;
 
   return (
     <motion.div
@@ -28,7 +31,8 @@ export function MessageCard({ message, index }: MessageCardProps) {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       className={cn(
-        "relative p-8 flex flex-col justify-between overflow-visible group transition-all duration-500 paint-splat neon-glow cursor-pointer",
+        "relative p-8 flex flex-col justify-between overflow-visible group transition-all duration-500 neon-glow cursor-pointer",
+        splatClass,
         theme.bg,
         theme.text
       )}
