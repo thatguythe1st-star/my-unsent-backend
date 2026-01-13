@@ -62,13 +62,13 @@ export function ComposeModal() {
       <DialogTrigger asChild>
         <Button 
           size="lg" 
-          className="fixed bottom-8 right-8 rounded-full h-16 w-16 shadow-2xl hover:scale-110 transition-transform duration-300 bg-black text-white hover:bg-zinc-800 z-40"
+          className="fixed bottom-8 right-8 rounded-none h-20 w-20 shadow-[5px_5px_0px_#00ffff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0px_#00ffff] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-200 bg-primary text-white z-40 border-4 border-white transform rotate-3"
         >
-          <PenLine className="h-6 w-6" />
+          <PenLine className="h-8 w-8 stroke-[3px]" />
         </Button>
       </DialogTrigger>
       <DialogContent className={cn(
-        "p-0 gap-0 overflow-hidden border-none sm:max-w-xl transition-colors duration-500 h-[600px] flex flex-col",
+        "p-0 gap-0 overflow-hidden border-4 border-white sm:max-w-xl transition-colors duration-500 h-[600px] flex flex-col shadow-[15px_15px_0px_rgba(255,0,255,0.5)]",
         selectedColor.class
       )}>
         <form onSubmit={handleSubmit} className="flex flex-col h-full relative z-10">

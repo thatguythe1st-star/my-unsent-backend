@@ -28,16 +28,16 @@ export function MessageCard({ message, index }: MessageCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       className={cn(
-        "relative p-8 rounded-none aspect-square flex flex-col justify-between overflow-hidden group transition-all duration-500 hover:scale-[1.02]",
+        "relative p-8 flex flex-col justify-between overflow-visible group transition-all duration-500 paint-splat neon-glow",
         theme.bg,
         theme.text
       )}
     >
       <div className="relative z-10">
-        <h3 className="font-display text-2xl font-bold italic opacity-90 mb-4">
+        <h3 className="font-display text-2xl font-black uppercase tracking-tighter opacity-90 mb-4 transform -rotate-1">
           To: {message.toName}
         </h3>
-        <p className="font-sans text-lg leading-relaxed font-medium line-clamp-6 opacity-95">
+        <p className="font-sans text-lg leading-tight font-bold line-clamp-6 opacity-95">
           {message.content}
         </p>
       </div>
