@@ -38,7 +38,7 @@ export function Header({ onSearch }: HeaderProps) {
             <span className="text-sky-300">☁️</span> The Unsent Project
           </h1>
           <p className="text-muted-foreground mt-1 font-sans text-xs font-bold tracking-widest uppercase">
-            Messages left unsaid
+            A personal Vendetta
           </p>
         </div>
 
