@@ -38,7 +38,7 @@ export async function registerRoutes(
     }
   });
 
-  await seedDatabase();
+  // await seedDatabase();
 
   return httpServer;
 }
