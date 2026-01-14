@@ -4,6 +4,8 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
+  base: "/wp-content/uploads/2026/01/my-unsent/",
+  
   plugins: [
     react(),
     runtimeErrorOverlay(),
