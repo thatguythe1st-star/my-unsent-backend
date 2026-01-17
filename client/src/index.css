@@ -118,8 +118,15 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40 transition-colors;
+  background-color: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease-in-out;
 }
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.4);
+}
+
 
 /* Texture overlay for paper feel */
 .bg-texture {
