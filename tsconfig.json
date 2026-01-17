@@ -1,6 +1,12 @@
 {
   "include": ["server/**/*", "shared/**/*"],
-  "exclude": ["node_modules", "client", "dist", "**/*.test.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "client",
+    "vite.config.ts",
+    "**/*.test.ts"
+  ],
 
   "compilerOptions": {
     /* Output */

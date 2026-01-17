@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { type Express } from "express";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
