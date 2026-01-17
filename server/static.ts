@@ -12,6 +12,8 @@ export function serveStatic(app: Express) {
   }
 
   console.log("Serving static files from:", distPath);
+  console.log("Static files:", fs.readdirSync(distPath));
+
 
   app.use(express.static(distPath));
 

@@ -33,7 +33,7 @@ const allowlist = [
 ];
 
 async function buildAll() {
-  await rm("dist", { recursive: true, force: true });
+  await rm("dist/index.cjs", { force: true });
 
   console.log("building client...");
   await viteBuild();
