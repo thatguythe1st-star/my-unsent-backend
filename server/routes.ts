@@ -8,23 +8,26 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  /* ---- LIST MESSAGES ---- */
+
+  /* ---------------- LIST MESSAGES ---------------- */
   app.get(api.messages.list.path, async (req, res) => {
     const search = req.query.search as string | undefined;
     const messages = await storage.getMessages(search);
     res.json(messages);
   });
 
-  /* ---- GET SINGLE MESSAGE ---- */
+  /* ---------------- GET SINGLE MESSAGE ---------------- */
   app.get(api.messages.get.path, async (req, res) => {
     const message = await storage.getMessage(Number(req.params.id));
+
     if (!message) {
       return res.status(404).json({ message: "Message not found" });
     }
+
     res.json(message);
   });
 
-  /* ---- CREATE MESSAGE ---- */
+  /* ---------------- CREATE MESSAGE ---------------- */
   app.post(api.messages.create.path, async (req, res) => {
     try {
       const input = api.messages.create.input.parse(req.body);
@@ -38,23 +41,41 @@ export async function registerRoutes(
         });
       }
 
-      // ✅ STEP 4 — log the real backend error
       console.error("❌ CREATE MESSAGE ERROR:", err);
-
-      // ✅ DO NOT THROW
       return res.status(500).json({
         message: "Failed to create message",
       });
     }
   });
 
-  /* ---- SEED DATABASE (SAFE) ---- */
+  /* ---------------- WIPE DATABASE (ADMIN) ---------------- */
+  app.delete("/api/admin/wipe", async (req, res) => {
+    try {
+      // OPTIONAL: protect with admin key
+      if (
+        process.env.ADMIN_KEY &&
+        req.headers["x-admin-key"] !== process.env.ADMIN_KEY
+      ) {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+
+      await storage.deleteAllMessages();
+      console.log("🧹 Database wiped");
+
+      res.json({ message: "Database wiped successfully" });
+    } catch (err) {
+      console.error("❌ WIPE DATABASE ERROR:", err);
+      res.status(500).json({ message: "Failed to wipe database" });
+    }
+  });
+
+  /* ---------------- SEED DATABASE (SAFE) ---------------- */
   await seedDatabase();
 
   return httpServer;
 }
 
-/* ---- SEED FUNCTION ---- */
+/* ---------------- SEED FUNCTION ---------------- */
 async function seedDatabase() {
   try {
     const existingMessages = await storage.getMessages();

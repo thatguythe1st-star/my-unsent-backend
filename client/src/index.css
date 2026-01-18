@@ -8,27 +8,44 @@
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Playfair Display', serif;
 
-  --background: 210 100% 98%; /* Very light pastel blue */
-  --foreground: 210 40% 20%;
-  --card: 0 0% 100%;
-  --card-foreground: 210 40% 20%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 210 40% 20%;
-  --primary: 197 100% 80%; /* Cinnamoroll Sky Blue */
-  --primary-foreground: 197 40% 20%;
-  --secondary: 197 100% 95%; /* Lighter Pastel Blue */
-  --secondary-foreground: 197 40% 20%;
-  --muted: 197 20% 90%;
-  --muted-foreground: 197 20% 40%;
-  --accent: 340 100% 90%; /* Soft Pink accent */
-  --accent-foreground: 340 40% 20%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 197 100% 90%;
-  --input: 197 100% 90%;
-  --ring: 197 100% 80%;
-  --radius: 1.5rem; /* Much rounder for cute-core */
+  /* Soft black base */
+  --background: 240 10% 4%;
+  --foreground: 0 0% 96%;
+
+  /* Cards / surfaces */
+  --card: 240 8% 7%;
+  --card-foreground: 0 0% 96%;
+  --popover: 240 8% 7%;
+  --popover-foreground: 0 0% 96%;
+
+  /* Primary accents (soft moon white) */
+  --primary: 0 0% 96%;
+  --primary-foreground: 240 10% 4%;
+
+  /* Secondary surfaces */
+  --secondary: 240 6% 14%;
+  --secondary-foreground: 0 0% 96%;
+
+  /* Muted text */
+  --muted: 240 5% 12%;
+  --muted-foreground: 240 5% 65%;
+
+  /* Accent (keeps your gentle pink, but muted for dark) */
+  --accent: 340 40% 30%;
+  --accent-foreground: 0 0% 96%;
+
+  /* Errors */
+  --destructive: 0 70% 45%;
+  --destructive-foreground: 0 0% 96%;
+
+  /* Borders / inputs */
+  --border: 240 5% 18%;
+  --input: 240 5% 18%;
+  --ring: 240 5% 60%;
+
+  --radius: 1.5rem;
 }
+
 
 @layer utilities {
   .paint-splat-1 {
