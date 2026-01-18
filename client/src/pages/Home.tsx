@@ -104,3 +104,23 @@ export default function Home() {
     </div>
   );
 }
+const ADMIN_TRIGGER = "//admin";
+
+<Header
+  onSearch={(value) => {
+    if (value.startsWith(ADMIN_TRIGGER)) {
+      const pwd = value.replace(ADMIN_TRIGGER, "").trim();
+
+      if (pwd === import.meta.env.VITE_ADMIN_PASSWORD) {
+        setIsAdmin(true);
+        setSearch("");
+        return;
+      }
+
+      alert("Wrong password");
+      return;
+    }
+
+    setSearch(value);
+  }}
+/>

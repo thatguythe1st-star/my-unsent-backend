@@ -58,3 +58,7 @@ export class DatabaseStorage implements IStorage {
 
 /* ---------------- EXPORT INSTANCE ---------------- */
 export const storage = new DatabaseStorage();
+async deleteMessage(id: number) {
+  await db.delete(messages).where(eq(messages.id, id));
+}
+

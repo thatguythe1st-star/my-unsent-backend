@@ -72,3 +72,22 @@ export function MessageCard({ message, index }: MessageCardProps) {
     </motion.div>
   );
 }
+{isAdmin && (
+  <button
+    onClick={async () => {
+      if (!confirm("Delete permanently?")) return;
+
+      await fetch(`/api/messages/${message.id}`, {
+        method: "DELETE",
+        headers: {
+          "x-admin-key": import.meta.env.VITE_ADMIN_PASSWORD,
+        },
+      });
+
+      window.location.reload();
+    }}
+    className="absolute top-2 right-2 text-red-500 text-xs"
+  >
+    ✕
+  </button>
+)}
