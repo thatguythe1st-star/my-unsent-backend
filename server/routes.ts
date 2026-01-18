@@ -8,20 +8,23 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  /* ---- LIST MESSAGES ---- */
   app.get(api.messages.list.path, async (req, res) => {
     const search = req.query.search as string | undefined;
     const messages = await storage.getMessages(search);
     res.json(messages);
   });
 
+  /* ---- GET SINGLE MESSAGE ---- */
   app.get(api.messages.get.path, async (req, res) => {
     const message = await storage.getMessage(Number(req.params.id));
     if (!message) {
-      return res.status(404).json({ message: 'Message not found' });
+      return res.status(404).json({ message: "Message not found" });
     }
     res.json(message);
   });
 
+  /* ---- CREATE MESSAGE ---- */
   app.post(api.messages.create.path, async (req, res) => {
     try {
       const input = api.messages.create.input.parse(req.body);
@@ -31,45 +34,53 @@ export async function registerRoutes(
       if (err instanceof z.ZodError) {
         return res.status(400).json({
           message: err.errors[0].message,
-          field: err.errors[0].path.join('.'),
+          field: err.errors[0].path.join("."),
         });
       }
-      throw err;
+
+      // ✅ STEP 4 — log the real backend error
+      console.error("❌ CREATE MESSAGE ERROR:", err);
+
+      // ✅ DO NOT THROW
+      return res.status(500).json({
+        message: "Failed to create message",
+      });
     }
   });
 
-  // await seedDatabase();
+  /* ---- SEED DATABASE (SAFE) ---- */
+  await seedDatabase();
 
   return httpServer;
 }
 
+/* ---- SEED FUNCTION ---- */
 async function seedDatabase() {
-  const existingMessages = await storage.getMessages();
-  if (existingMessages.length === 0) {
-    await storage.createMessage({
-      toName: "Alex",
-      content: "I still think about the time we drove to the beach at 2am. I miss you.",
-      color: "#3b82f6" // Blue
-    });
-    await storage.createMessage({
-      toName: "Sarah",
-      content: "I'm sorry I never said goodbye properly. I hope you're happy now.",
-      color: "#ef4444" // Red
-    });
-    await storage.createMessage({
-      toName: "Mom",
-      content: "I wish I could call you one last time.",
-      color: "#18181b" // Black
-    });
-    await storage.createMessage({
-      toName: "Future Me",
-      content: "Don't forget how far you've come. Keep going.",
-      color: "#10b981" // Green
-    });
-    await storage.createMessage({
-      toName: "J",
-      content: "You were my favorite mistake.",
-      color: "#f59e0b" // Orange
-    });
+  try {
+    const existingMessages = await storage.getMessages();
+
+    if (existingMessages.length === 0) {
+      await storage.createMessage({
+        toName: "Mylah",
+        content: "Whats crackalackin",
+        color: "#3b82f6",
+      });
+
+      await storage.createMessage({
+        toName: "Mimi",
+        content: "Can we go home now, Its getting later baby",
+        color: "#ef4444",
+      });
+
+      await storage.createMessage({
+        toName: "Senior Project",
+        content: "I love working on this project",
+        color: "#18181b",
+      });
+
+      console.log("✅ Database seeded");
+    }
+  } catch (err) {
+    console.error("❌ SEED DATABASE ERROR:", err);
   }
 }
