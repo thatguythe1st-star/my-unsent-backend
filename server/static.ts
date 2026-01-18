@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 
 export function serveStatic(app: Express) {
-  // frontend build lives in dist/public
   const distPath = path.resolve(process.cwd(), "dist/public");
 
   if (!fs.existsSync(distPath)) {
@@ -12,12 +11,20 @@ export function serveStatic(app: Express) {
   }
 
   console.log("Serving static files from:", distPath);
-  console.log("Static files:", fs.readdirSync(distPath));
 
+  // 1️⃣ Serve static assets FIRST
+  app.use(
+    express.static(distPath, {
+      index: false, // important
+    })
+  );
 
-  app.use(express.static(distPath));
+  // 2️⃣ SPA fallback — BUT ignore asset requests
+  app.get("*", (req, res) => {
+    if (req.path.startsWith("/assets")) {
+      return res.sendStatus(404);
+    }
 
-  app.get("*", (_req, res) => {
     res.sendFile(path.join(distPath, "index.html"));
   });
 }
