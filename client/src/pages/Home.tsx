@@ -6,25 +6,44 @@ import { ComposeModal } from "@/components/ComposeModal";
 import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const ADMIN_TRIGGER = "//admin";
+
 export default function Home() {
   const [search, setSearch] = useState("");
-  const [cleared, setCleared] = useState(false); // ✅ NEW
+  const [cleared, setCleared] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const { data: messages, isLoading, error } = useMessages(search);
+
+  function handleSearch(value: string) {
+    if (value.startsWith(ADMIN_TRIGGER)) {
+      const pwd = value.replace(ADMIN_TRIGGER, "").trim();
+
+      if (pwd === import.meta.env.VITE_ADMIN_PASSWORD) {
+        setIsAdmin(true);
+        setSearch("");
+        return;
+      }
+
+      alert("Wrong password");
+      return;
+    }
+
+    setSearch(value);
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
-      {/* Texture overlay */}
       <div className="bg-texture" />
 
-      <Header onSearch={setSearch} />
+      <Header onSearch={handleSearch} />
 
-      {/* Spacing for fixed header */}
       <div className="h-32 md:h-40" />
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* ✅ WIPE BUTTON */}
-        {!isLoading && !error && (
+        {/* WIPE VISUAL DECK */}
+        {isAdmin && !isLoading && !error && (
           <div className="flex justify-end mb-6">
             <button
               onClick={() => setCleared(true)}
@@ -43,12 +62,13 @@ export default function Home() {
         ) : error ? (
           <div className="flex flex-col items-center justify-center min-h-[50vh] text-destructive">
             <p className="font-display text-2xl">Something went wrong.</p>
-            <p className="font-sans mt-2 opacity-70">Please try refreshing the page.</p>
+            <p className="font-sans mt-2 opacity-70">
+              Please try refreshing the page.
+            </p>
           </div>
         ) : (
           <AnimatePresence mode="wait">
             {cleared ? (
-              /* ✅ CLEARED STATE */
               <motion.div
                 key="cleared"
                 initial={{ opacity: 0 }}
@@ -64,7 +84,6 @@ export default function Home() {
                 </p>
               </motion.div>
             ) : (
-              /* ✅ NORMAL MESSAGE GRID */
               <motion.div
                 key="messages"
                 initial={{ opacity: 0 }}
@@ -91,6 +110,7 @@ export default function Home() {
                       key={message.id}
                       message={message}
                       index={index}
+                      isAdmin={isAdmin}
                     />
                   ))
                 )}
@@ -104,23 +124,3 @@ export default function Home() {
     </div>
   );
 }
-const ADMIN_TRIGGER = "//admin";
-
-<Header
-  onSearch={(value) => {
-    if (value.startsWith(ADMIN_TRIGGER)) {
-      const pwd = value.replace(ADMIN_TRIGGER, "").trim();
-
-      if (pwd === import.meta.env.VITE_ADMIN_PASSWORD) {
-        setIsAdmin(true);
-        setSearch("");
-        return;
-      }
-
-      alert("Wrong password");
-      return;
-    }
-
-    setSearch(value);
-  }}
-/>

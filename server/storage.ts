@@ -11,17 +11,19 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
-
   async getMessages(search?: string): Promise<Message[]> {
     if (search) {
-      return db
+      return await db
         .select()
         .from(messages)
         .where(like(messages.toName, `%${search}%`))
         .orderBy(desc(messages.createdAt));
     }
 
-    return db.select().from(messages).orderBy(desc(messages.createdAt));
+    return await db
+      .select()
+      .from(messages)
+      .orderBy(desc(messages.createdAt));
   }
 
   async getMessage(id: number): Promise<Message | undefined> {
