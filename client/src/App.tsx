@@ -1,31 +1,7 @@
-import { Switch, Route, Router } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Home from "@/pages/Home";
-import NotFound from "@/pages/not-found";
-
-function AppRouter() {
+export default function App() {
   return (
-    <Router base="/wp-content/uploads/2026/01/my-unsent">
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
+    <div style={{ padding: 40, fontSize: 24 }}>
+      ✅ App is rendering
+    </div>
   );
 }
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <AppRouter />
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-}
-
-export default App;
