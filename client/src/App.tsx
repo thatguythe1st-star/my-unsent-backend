@@ -7,8 +7,14 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 
 function AppRouter() {
+  const base =
+    import.meta.env.PROD &&
+    location.pathname.startsWith("/wp-content")
+      ? "/wp-content/uploads/2026/01/my-unsent"
+      : "/";
+
   return (
-    <Router>
+    <Router base={base}>
       <Switch>
         <Route path="/" component={Home} />
         <Route component={NotFound} />
