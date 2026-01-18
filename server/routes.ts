@@ -48,20 +48,36 @@ export async function registerRoutes(
     }
   });
 
+  /* ---------------- DELETE SINGLE MESSAGE (ADMIN) ---------------- */
+  app.delete("/api/messages/:id", async (req, res) => {
+    if (
+      process.env.ADMIN_KEY &&
+      req.headers["x-admin-key"] !== process.env.ADMIN_KEY
+    ) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    try {
+      await storage.deleteMessage(Number(req.params.id));
+      res.json({ success: true });
+    } catch (err) {
+      console.error("❌ DELETE MESSAGE ERROR:", err);
+      res.status(500).json({ message: "Failed to delete message" });
+    }
+  });
+
   /* ---------------- WIPE DATABASE (ADMIN) ---------------- */
   app.delete("/api/admin/wipe", async (req, res) => {
-    try {
-      // OPTIONAL: protect with admin key
-      if (
-        process.env.ADMIN_KEY &&
-        req.headers["x-admin-key"] !== process.env.ADMIN_KEY
-      ) {
-        return res.status(403).json({ message: "Forbidden" });
-      }
+    if (
+      process.env.ADMIN_KEY &&
+      req.headers["x-admin-key"] !== process.env.ADMIN_KEY
+    ) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
 
+    try {
       await storage.deleteAllMessages();
       console.log("🧹 Database wiped");
-
       res.json({ message: "Database wiped successfully" });
     } catch (err) {
       console.error("❌ WIPE DATABASE ERROR:", err);
@@ -105,24 +121,3 @@ async function seedDatabase() {
     console.error("❌ SEED DATABASE ERROR:", err);
   }
 }
-
-{isAdmin && (
-  <button
-    onClick={async () => {
-      if (!confirm("Delete permanently?")) return;
-
-      await fetch(`/api/messages/${message.id}`, {
-        method: "DELETE",
-        headers: {
-          "x-admin-key": import.meta.env.VITE_ADMIN_PASSWORD,
-        },
-      });
-
-      window.location.reload();
-    }}
-    className="absolute top-2 right-2 text-red-500 text-xs"
-  >
-    ✕
-  </button>
-)}
-
