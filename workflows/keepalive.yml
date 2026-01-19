@@ -19,4 +19,4 @@ jobs:
 
       - name: Ping Render app
         run: |
-          curl -s https://YOUR-RENDER-APP.onrender.com/api/messages > /dev/null
+          curl -s https://my-unsent-backend.onrender.com/api/messages > /dev/null
