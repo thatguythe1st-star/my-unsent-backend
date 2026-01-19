@@ -1,1 +1,22 @@
+name: Keep Render Awake (Randomized)
 
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Random delay (0–5 minutes)
+        run: |
+          DELAY=$((RANDOM % 300))
+          echo "Sleeping for $DELAY seconds..."
+          sleep $DELAY
+
+      - name: Ping Render app
+        run: |
+          curl -s https://YOUR-RENDER-APP.onrender.com/api/messages > /dev/null
