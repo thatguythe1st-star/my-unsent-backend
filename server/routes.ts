@@ -98,20 +98,20 @@ async function seedDatabase() {
 
     if (existingMessages.length === 0) {
       await storage.createMessage({
-        toName: "Mylah",
-        content: "Whats crackalackin",
+        toName: "Mark",
+        content: "I saw you in my dream again",
         color: "#3b82f6",
       });
 
       await storage.createMessage({
-        toName: "Mimi",
-        content: "Can we go home now, Its getting later baby",
+        toName: "Jess",
+        content: "It's been so long, I hope you moved on",
         color: "#ef4444",
       });
 
       await storage.createMessage({
-        toName: "Senior Project",
-        content: "I love working on this project",
+        toName: "Finn",
+        content: "I still think of you when I eat pancakes, I miss your pancakes",
         color: "#18181b",
       });
 
